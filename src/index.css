@@ -1,0 +1,135 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=Caveat:wght@400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 40 20% 97%;
+    --foreground: 150 25% 15%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 150 25% 15%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 150 25% 15%;
+
+    --primary: 150 30% 25%;
+    --primary-foreground: 40 20% 97%;
+
+    --secondary: 40 70% 58%;
+    --secondary-foreground: 150 25% 15%;
+
+    --muted: 40 15% 93%;
+    --muted-foreground: 150 10% 45%;
+
+    --accent: 40 70% 58%;
+    --accent-foreground: 150 25% 15%;
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 40 15% 88%;
+    --input: 40 15% 88%;
+    --ring: 150 30% 25%;
+
+    --radius: 0.5rem;
+
+    --hero-overlay: 150 30% 18%;
+    --mustard: 40 70% 58%;
+    --dark-green: 150 40% 20%;
+    --cream: 40 20% 97%;
+    --forest: 150 35% 12%;
+
+    --sidebar-background: 0 0% 98%;
+    --sidebar-foreground: 240 5.3% 26.1%;
+    --sidebar-primary: 240 5.9% 10%;
+    --sidebar-primary-foreground: 0 0% 98%;
+    --sidebar-accent: 240 4.8% 95.9%;
+    --sidebar-accent-foreground: 240 5.9% 10%;
+    --sidebar-border: 220 13% 91%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    font-family: 'DM Sans', system-ui, -apple-system, sans-serif;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'DM Sans', system-ui, sans-serif;
+  }
+}
+
+@layer components {
+  .font-handwritten {
+    font-family: 'Caveat', cursive;
+  }
+
+  .torn-edge-bottom {
+    position: relative;
+  }
+  .torn-edge-bottom::after {
+    content: '';
+    position: absolute;
+    bottom: -30px;
+    left: 0;
+    width: 100%;
+    height: 30px;
+    background: inherit;
+    mask-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 1200 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0,0 L0,8 Q15,18 30,7 Q45,0 60,10 Q70,16 85,6 Q100,0 115,12 Q125,18 140,5 Q155,-2 170,10 Q180,15 195,8 Q210,2 225,14 Q235,19 250,6 Q265,-1 280,11 Q290,16 305,7 Q320,0 335,13 Q345,18 360,5 Q375,-3 390,10 Q400,14 415,8 Q430,3 445,15 Q455,20 470,6 Q485,-2 500,10 Q510,15 525,7 Q540,1 555,13 Q565,18 580,5 Q595,-1 610,11 Q620,16 635,7 Q650,0 665,12 Q675,17 690,5 Q705,-2 720,10 Q730,15 745,8 Q760,2 775,14 Q785,19 800,6 Q815,-1 830,11 Q840,16 855,7 Q870,0 885,13 Q895,18 910,5 Q925,-3 940,10 Q950,14 965,8 Q980,3 995,15 Q1005,20 1020,6 Q1035,-2 1050,10 Q1060,15 1075,7 Q1090,1 1105,13 Q1115,18 1130,5 Q1145,-1 1160,11 Q1170,16 1185,7 L1200,10 L1200,0 Z' fill='white'/%3E%3C/svg%3E");
+    mask-size: 100% 100%;
+    mask-repeat: no-repeat;
+    z-index: 10;
+  }
+
+  .torn-edge-top {
+    position: relative;
+  }
+  .torn-edge-top::before {
+    content: '';
+    position: absolute;
+    top: -30px;
+    left: 0;
+    width: 100%;
+    height: 30px;
+    background: inherit;
+    mask-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 1200 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0,30 L0,22 Q15,12 30,23 Q45,30 60,20 Q70,14 85,24 Q100,30 115,18 Q125,12 140,25 Q155,32 170,20 Q180,15 195,22 Q210,28 225,16 Q235,11 250,24 Q265,31 280,19 Q290,14 305,23 Q320,30 335,17 Q345,12 360,25 Q375,33 390,20 Q400,16 415,22 Q430,27 445,15 Q455,10 470,24 Q485,32 500,20 Q510,15 525,23 Q540,29 555,17 Q565,12 580,25 Q595,31 610,19 Q620,14 635,23 Q650,30 665,18 Q675,13 690,25 Q705,32 720,20 Q730,15 745,22 Q760,28 775,16 Q785,11 800,24 Q815,31 830,19 Q840,14 855,23 Q870,30 885,17 Q895,12 910,25 Q925,33 940,20 Q950,16 965,22 Q980,27 995,15 Q1005,10 1020,24 Q1035,32 1050,20 Q1060,15 1075,23 Q1090,29 1105,17 Q1115,12 1130,25 Q1145,31 1160,19 Q1170,14 1185,23 L1200,20 L1200,30 Z' fill='white'/%3E%3C/svg%3E");
+    mask-size: 100% 100%;
+    mask-repeat: no-repeat;
+    z-index: 10;
+  }
+
+  .animate-fade-up {
+    animation: fadeUp 0.7s ease-out forwards;
+    opacity: 0;
+  }
+
+  .animate-fade-in {
+    animation: fadeIn 0.6s ease-out forwards;
+    opacity: 0;
+  }
+}
+
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
