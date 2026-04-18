@@ -1,4 +1,4 @@
-import { Star } from "lucide-react";
+import { FaStar } from "react-icons/fa";
 import testimonial1 from "@/assets/testimonial-1.jpg";
 import testimonial2 from "@/assets/testimonial-2.jpg";
 import testimonial3 from "@/assets/testimonial-3.jpg";
@@ -29,7 +29,7 @@ const TestimonialsSection = () => {
         {/* Stars */}
         <div className="flex justify-center gap-1 mb-8">
           {["s1", "s2", "s3", "s4", "s5"].map((id) => (
-            <Star key={id} size={22} className="fill-secondary text-secondary" />
+            <FaStar key={id} size={20} className="text-secondary" />
           ))}
         </div>
 
@@ -62,8 +62,11 @@ const TestimonialsSection = () => {
       </div>
 
       {/* Torn edge — hangs below the green background, same logic as top */}
-      <div className="absolute bottom-0 left-0 w-full z-10 pointer-events-none" style={{ transform: 'translateY(99%)' }}>
-        <img src="/ripped-paper-testimonials.png" alt="" className="w-full block" />
+      <div
+        className="absolute bottom-0 left-0 w-full z-10 pointer-events-none"
+        style={{ transform: "translateY(calc(100% - 2px)) scaleY(-1)" }}
+      >
+        <img src="/ripped-paper-base-2.png" alt="" className="w-full block" />
       </div>
     </section>
   );

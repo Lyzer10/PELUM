@@ -1,97 +1,108 @@
 import { useState } from "react";
-import { Search, ShoppingCart, Phone, Menu, X } from "lucide-react";
+import { FaArrowRight, FaBars, FaMapMarkerAlt, FaTimes } from "react-icons/fa";
+import { Link, useLocation } from "react-router-dom";
+
+const navLinks = [
+  { label: "Home", href: "/" },
+  { label: "About", href: "/#about" },
+  { label: "Services", href: "/#services" },
+  { label: "Projects", href: "/#projects" },
+  { label: "News", href: "/#news" },
+];
 
 const Header = () => {
   const [mobileOpen, setMobileOpen] = useState(false);
-
-  const navLinks = ["Home", "About", "Pages", "Shop", "Projects", "News"];
+  const { pathname, hash } = useLocation();
 
   return (
-    /* Single sticky wrapper — info bar + nav + torn paper all stay fixed together */
     <div className="sticky top-0 z-50">
-      {/* Top info bar */}
-      <div className="bg-forest hidden md:block">
+      <div className="hidden bg-forest md:block">
         <div className="container mx-auto flex items-center justify-between px-6 py-2 text-sm text-primary-foreground/80">
-          <div className="flex items-center gap-4">
-            <span>Welcome to Agriculture Farm</span>
-          </div>
+          <span className="font-semibold uppercase tracking-[0.22em] text-secondary">
+            Welcome to PELUM Tanzania
+          </span>
           <div className="flex items-center gap-6">
-            <span>needhelp@company.com</span>
-            <span>Mon - Sat 8:00 - 6:30, Sunday - CLOSED</span>
+            <span className="flex items-center gap-2">
+              <FaMapMarkerAlt size={13} />
+              Morogoro Municipality, Tanzania
+            </span>
+            <span>Regional coordination in Lusaka, Zambia</span>
           </div>
         </div>
       </div>
 
-      {/* Main navigation */}
       <header className="bg-card shadow-sm">
         <div className="container mx-auto flex items-center justify-between px-6 py-4">
-          {/* Logo */}
-          <a href="/" className="flex items-center">
-            <img src="/logo.png" alt="Agrikon" className="h-12 w-auto object-contain" />
-          </a>
+          <Link to="/" className="flex items-center gap-3">
+            <img src="/logo.png" alt="PELUM Tanzania" className="h-12 w-auto object-contain" />
+            <div className="hidden sm:block">
+              <p className="text-sm font-bold uppercase tracking-[0.26em] text-primary">PELUM</p>
+              <p className="text-xs text-muted-foreground">Tanzania</p>
+            </div>
+          </Link>
 
-          {/* Desktop nav */}
-          <nav className="hidden lg:flex items-center gap-8">
-            {navLinks.map((link) => (
-              <a
-                key={link}
-                href={`#${link.toLowerCase()}`}
-                className="text-foreground/80 hover:text-secondary font-medium transition-colors duration-200 text-[15px]"
-              >
-                {link}
-              </a>
-            ))}
+          <nav className="hidden items-center gap-8 lg:flex">
+            {navLinks.map((link) => {
+              const isActive =
+                (link.href === "/" && pathname === "/") ||
+                (link.href === "/#about" && pathname === "/" && hash === "#about") ||
+                (link.href === "/#services" && pathname === "/" && hash === "#services") ||
+                (link.href === "/#projects" && pathname === "/" && hash === "#projects") ||
+                (link.href === "/#news" && pathname === "/" && hash === "#news");
+
+              return (
+                <Link
+                  key={link.label}
+                  to={link.href}
+                  className={`text-[15px] font-medium transition-colors duration-200 ${
+                    isActive ? "text-primary" : "text-foreground/80 hover:text-secondary"
+                  }`}
+                >
+                  {link.label}
+                </Link>
+              );
+            })}
           </nav>
 
-          {/* Right section */}
           <div className="flex items-center gap-4">
-            <button className="text-foreground/70 hover:text-secondary transition-colors hidden md:block" aria-label="Search">
-              <Search size={20} />
-            </button>
-            <button className="text-foreground/70 hover:text-secondary transition-colors hidden md:block relative" aria-label="Cart">
-              <ShoppingCart size={20} />
-              <span className="absolute -top-2 -right-2 bg-secondary text-secondary-foreground text-xs w-5 h-5 rounded-full flex items-center justify-center font-bold">0</span>
-            </button>
-            <a
-              href="tel:+92888888000"
-              className="hidden md:flex items-center gap-2 bg-secondary text-secondary-foreground px-5 py-2.5 rounded-lg font-semibold text-sm hover:opacity-90 transition-opacity"
+            <Link
+              to="/#about"
+              className="hidden items-center gap-2 rounded-lg bg-secondary px-5 py-2.5 text-sm font-semibold text-secondary-foreground transition-opacity hover:opacity-90 md:flex"
             >
-              <Phone size={16} />
-              <span>92 888 888 0000</span>
-            </a>
+              <span>About Us</span>
+              <FaArrowRight size={14} />
+            </Link>
             <button
-              className="lg:hidden text-foreground"
+              className="text-foreground lg:hidden"
               onClick={() => setMobileOpen(!mobileOpen)}
               aria-label="Menu"
             >
-              {mobileOpen ? <X size={24} /> : <Menu size={24} />}
+              {mobileOpen ? <FaTimes size={22} /> : <FaBars size={22} />}
             </button>
           </div>
         </div>
 
-        {/* Mobile menu */}
         {mobileOpen && (
-          <nav className="lg:hidden bg-card border-t border-border px-6 py-4 space-y-3">
+          <nav className="space-y-3 border-t border-border bg-card px-6 py-4 lg:hidden">
             {navLinks.map((link) => (
-              <a
-                key={link}
-                href={`#${link.toLowerCase()}`}
-                className="block text-foreground/80 hover:text-secondary font-medium py-2"
+              <Link
+                key={link.label}
+                to={link.href}
+                className="block py-2 font-medium text-foreground/80 hover:text-secondary"
                 onClick={() => setMobileOpen(false)}
               >
-                {link}
-              </a>
+                {link.label}
+              </Link>
             ))}
           </nav>
         )}
       </header>
 
-      {/* Torn paper — fixed below the nav, scrolls with it, 2px overlap kills the gap */}
       <div
-        className="absolute bottom-0 left-0 w-full pointer-events-none"
-        style={{ transform: 'translateY(calc(100% - 2px))', zIndex: 49 }}
+        className="pointer-events-none absolute bottom-0 left-0 w-full"
+        style={{ transform: "translateY(calc(100% - 2px))", zIndex: 49 }}
       >
-        <img src="/ripped-paper-header-1.png" alt="" className="w-full block" />
+        <img src="/ripped-paper-header-1.png" alt="" className="block w-full" />
       </div>
     </div>
   );
